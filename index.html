@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ギター指板学習アプリ</title>
   <style>
-    <style>
     body {
       font-family: 'Poppins', sans-serif;
       background-color: #f9f9f9;
@@ -201,8 +200,12 @@
         for (let fret = 0; fret < notes[string].length; fret++) {
           const fretDiv = document.createElement('div');
           fretDiv.classList.add('fret');
+          fretDiv.textContent = "";
+          // フレットをクリックしたときに音名を表示
+          fretDiv.addEventListener('click', () => {
           fretDiv.textContent = notes[string][fret];
-          fretDiv.addEventListener('click', () => checkAnswer(notes[string][fret]));
+          checkAnswer(notes[string][fret]);
+
           fretboard.appendChild(fretDiv);
         }
       }
