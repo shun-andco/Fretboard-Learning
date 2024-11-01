@@ -6,34 +6,157 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ギター指板学習アプリ</title>
   <style>
+    <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Poppins', sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+
+    h1 {
+      /* 大きな見出し */
+      font-size: clamp(18px, 4vw, 30px);
+      font-weight: 500;
+      max-width: 100%;
+
+      /* 普通の太さ */
+      color: #3e3255;
+      /* 濃い紫 */
+      margin-bottom: 20px;
       text-align: center;
+      /* 中央揃え */
     }
 
     .fretboard {
+      max-width: 100%;
+      max-height: 100%;
+      aspect-ratio: 25 / 9;
       display: grid;
+      margin: 0 auto;
+      padding: 1vw;
       grid-template-columns: repeat(13, 1fr);
-      gap: 5px;
-      margin: 20px auto;
-      max-width: 800px;
+      gap: 0.7vw;
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      /* 角を丸く */
+      background-color: #ffffff;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     }
 
     .fret {
-      padding: 15px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      cursor: pointer;
-      background-color: #f0f0f0;
-      transition: background-color 0.3s;
+      max-width: 100%;
+      max-height: 100%;
+      aspect-ratio: 25 / 9;
+      display: grid;
+      justify-content: center;
+      align-items: center;
+      border-radius: 8px;
+      /* 角を丸く */
+      transition: background-color 0.3s, transform 0.2s;
+      background-color: #f1f1f1;
+      border: 1px solid #d1c4e9;
+      font-size: 2vw;
+      /* 薄い紫 */
     }
 
     .fret:hover {
-      background-color: #d0d0f0;
+      background-color: rgba(128, 0, 128, 0.2);
+      /* パープルのホバー */
     }
 
     .highlight {
-      background-color: #b0f0b0;
+      background-color: rgba(128, 0, 128, 0.3);
+      /* 薄いパープル */
+    }
+
+    .string-number,
+    .fret-number {
+      font-weight: bold;
+      text-align: center;
+      font-size: auto;
+      color: #6a1b9a;
+      /* 濃い紫 */
+      letter-spacing: 0.5px;
+      line-height: 1.4;
+      margin: 0 auto;
+
+    }
+
+    .fret-number {
+      font-size: 2vw;
+      color: #5e35b1;
+      /* 濃い紫 */
+      max-width: 100%;
+      aspect-ratio: 25 / 9;
+      margin: 0 auto;
+    }
+
+    .note-selector-container {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 20px auto;
+      /* 上下の余白を追加 */
+      padding: 0;
+      align-items: stretch;
+    }
+
+    .note-button,
+    .chord-button {
+      aspect-ratio: 1/1;
+    }
+
+    .note-button,
+    .scale-button,
+    .chord-button {
+      padding: 1%;
+      border: 1px solid #9c27b0;
+      /* 濃いピンク */
+      background-color: #ffffff;
+      cursor: pointer;
+      border-radius: 8px;
+      /* 角を丸く */
+      transition: background-color 0.3s, color 0.3s;
+      margin: 2px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #5e35b1;
+      /* 濃い紫 */
+      flex: 1 1 calc(33.33% - 10px);
+      /* 横に3つ並ぶように設定 */
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      min-height: 40px;
+    }
+
+    .note-button:hover,
+    .scale-button:hover,
+    .chord-button:hover {
+      background-color: #9c27b0;
+      /* 濃いピンクのホバー */
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .selected {
+      background-color: #5e35b1;
+      /* 濃い紫 */
+      color: white;
+    }
+
+    .dot {
+      width: 0.8vw;
+      height: 0.8vw;
+      border-radius: 50%;
+      background-color: #9c27b0;
+      /* 濃いピンク */
+      margin: 0.2vw auto;
+    }
+
+    .double-dot {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     .note-button {
