@@ -259,6 +259,7 @@
       // ギターの音域内でランダムに音階を選択
       const randomNote = guitarRangeNotes[Math.floor(Math.random() * guitarRangeNotes.length)];
       document.getElementById('outputNote').textContent = `音階: ${randomNote}`;
+      resetFretboard();
       return randomNote;
     }
 
@@ -269,6 +270,15 @@
       } else {
         alert('不正解、もう一度挑戦してみてください。');
       }
+    }
+    
+    function resetFretboard() {
+      const fretElements = document.querySelectorAll('.fret');
+      fretElements.forEach(fret => {
+        fret.textContent = ''; // フレットのテキストを空にする
+        fret.classList.remove('highlight'); // ハイライトなどのクラスを削除
+        fret.style.backgroundColor = ''; // 背景色を初期状態に戻す
+      });
     }
 
     document.getElementById('testButton').addEventListener('click', getRandomNote);
