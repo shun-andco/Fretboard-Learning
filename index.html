@@ -50,18 +50,15 @@
       max-height: 100%;
       aspect-ratio: 16 / 9;
       display: grid;
-      justify-content: center;
+      justify-items: center;
       align-items: center;
       border-radius: 8px;
       transition: background-color 0.3s, transform 0.2s;
       background-color: #f1f1f1;
       border: 1px solid #d1c4e9;
-      font-size: clamp(6px, 1%, 12px);
+      font-size: clamp(6px, 10px, 12px); /* 推奨値を調整 */
       font-weight: 500;
       box-sizing: border-box;
-      align-items: center;
-      justify-items: center;
-      line-height: normal;
     }
 
     .fret:hover {
