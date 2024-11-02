@@ -15,17 +15,11 @@
     }
 
     h1 {
-      /* 大きな見出し */
       font-size: clamp(18px, 4vw, 30px);
       font-weight: 500;
-      max-width: 100%;
-
-      /* 普通の太さ */
       color: #3e3255;
-      /* 濃い紫 */
       margin-bottom: 20px;
       text-align: center;
-      /* 中央揃え */
     }
 
     .fretboard {
@@ -40,115 +34,22 @@
       gap: 0.7vw;
       border: 2px solid #e0e0e0;
       border-radius: 12px;
-      /* 角を丸く */
       background-color: #ffffff;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     }
 
     .fret {
-      max-width: 100%;
-      max-height: 100%;
-      aspect-ratio: 16 / 9;
       display: grid;
       justify-content: center;
       align-items: center;
       border-radius: 8px;
-      /* 角を丸く */
       transition: background-color 0.3s, transform 0.2s;
       background-color: #f1f1f1;
       border: 1px solid #d1c4e9;
-      font-size: 1%;
-      /* 薄い紫 */
     }
 
     .fret:hover {
       background-color: rgba(128, 0, 128, 0.2);
-      /* パープルのホバー */
-    }
-
-    .highlight {
-      background-color: rgba(128, 0, 128, 0.3);
-      /* 薄いパープル */
-    }
-
-    .string-number,
-    .fret-number {
-      font-weight: bold;
-      text-align: center;
-      font-size: auto;
-      color: #6a1b9a;
-      /* 濃い紫 */
-      letter-spacing: 0.5px;
-      line-height: 1.4;
-      margin: 0 auto;
-
-    }
-
-    .fret-number {
-      font-size: 2vw;
-      color: #5e35b1;
-      /* 濃い紫 */
-      max-width: 100%;
-      aspect-ratio: 25 / 9;
-      margin: 0 auto;
-    }
-
-    .note-selector-container {
-      display: flex;
-      flex-wrap: wrap;
-      margin: 20px auto;
-      /* 上下の余白を追加 */
-      padding: 0;
-      align-items: stretch;
-    }
-
-    .note-button　{
-      aspect-ratio: 1/1;
-      padding: 1%;
-      border: 1px solid #9c27b0;
-      /* 濃いピンク */
-      background-color: #ffffff;
-      cursor: pointer;
-      border-radius: 8px;
-      /* 角を丸く */
-      transition: background-color 0.3s, color 0.3s;
-      margin: 2px;
-      font-size: 14px;
-      font-weight: 500;
-      color: #5e35b1;
-      /* 濃い紫 */
-      flex: 1 1 calc(33.33% - 10px);
-      /* 横に3つ並ぶように設定 */
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      min-height: 40px;
-    }
-
-    .note-button:hover {
-      background-color: #9c27b0;
-      /* 濃いピンクのホバー */
-      color: white;
-      transform: translateY(-2px);
-    }
-
-    .selected {
-      background-color: #5e35b1;
-      /* 濃い紫 */
-      color: white;
-    }
-
-    .dot {
-      width: 0.8vw;
-      height: 0.8vw;
-      border-radius: 50%;
-      background-color: #9c27b0;
-      /* 濃いピンク */
-      margin: 0.2vw auto;
-    }
-
-    .double-dot {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
     }
 
     .note-button {
@@ -192,8 +93,8 @@
       ["E2", "F2", "F#2", "G2", "G#2", "A2", "A#2", "B2", "C3", "C#3", "D3", "D#3", "E3", "F3", "F#3", "G3", "G#3", "A3", "A#3", "B3", "C4", "C#4", "D4", "D#4", "E4"]
     ];
 
+    let soundEnabled = true; // 音の再生状態を管理する変数
 
-    
     function generateFretboard() {
       const fretboard = document.getElementById('fretboard');
       fretboard.innerHTML = '';
@@ -207,159 +108,29 @@
           fretDiv.addEventListener('click', () => {
             fretDiv.textContent = notes[string][fret];
             checkAnswer(notes[string][fret]);
-          });
-    
-          fretboard.appendChild(fretDiv);
-        }
-      }
-    }
-
-    function generateFretboard() {
-      const fretboard = document.getElementById('fretboard');
-      fretboard.innerHTML = '';
-      
-      // フレット番号の表示
-      for (let fret = 0; fret <= 24; fret++) {
-        const fretNumberDiv = document.createElement('div');
-        fretNumberDiv.classList.add('fret-number');
-        fretNumberDiv.textContent = fret === 0 ? '' : fret;
-        fretboard.appendChild(fretNumberDiv);
-      }
-
-      for (let string = 0; string < notes.length; string++) {
-        for (let fret = 0; fret < notes[string].length; fret++) {
-          const fretDiv = document.createElement('div');
-          fretDiv.classList.add('fret');
-          fretDiv.textContent = '';
-          fretDiv.addEventListener('click', () => {
-            if (fretDiv.textContent === '') {
-              fretDiv.textContent = notes[string][fret];
+            if (soundEnabled) {
+              playSound(notes[string][fret]); // 音が有効な場合のみ音を再生
             }
-            checkAnswer(notes[string][fret]);
           });
-
+    
           fretboard.appendChild(fretDiv);
         }
       }
-      
-      for (let fret = 0; fret <= 24; fret++) {
-        const fretNumberDiv = document.createElement('div');
-        fretNumberDiv.classList.add('fret-number');
-        if (fret === 3 || fret === 5 || fret == 7 || fret == 9 || fret == 15 || fret == 17 || fret == 19 || fret == 21) {
-          // 3フレットと5フレットに点を追加
-          const dot = document.createElement('div');
-          dot.classList.add('dot');
-          fretNumberDiv.appendChild(dot);
-        } else if (fret == 12 || fret == 24) {
-          const doubleDotDiv = document.createElement('div');
-          doubleDotDiv.classList.add('double-dot');
-          const dot1 = document.createElement('div');
-          const dot2 = document.createElement('div');
-          dot1.classList.add('dot');
-          dot2.classList.add('dot');
-          doubleDotDiv.appendChild(dot1);
-          doubleDotDiv.appendChild(dot2);
-          fretNumberDiv.appendChild(doubleDotDiv);
-        }
-        fretboard.appendChild(fretNumberDiv);
-      }
     }
 
-    function getRandomNote() {
-      // ギターの音域に相当する音階リストを定義
-      const guitarRangeNotes = [
-        "E2", "F2", "F#2", "G2", "G#2", "A2", "A#2", "B2",
-        "C3", "C#3", "D3", "D#3", "E3", "F3", "F#3", "G3",
-        "G#3", "A3", "A#3", "B3", "C4", "C#4", "D4", "D#4",
-        "E4", "F4", "F#4", "G4", "G#4", "A4", "A#4", "B4",
-        "C5", "C#5", "D5", "D#5", "E5", "F5", "F#5", "G5",
-        "G#5", "A5", "A#5", "B5", "C6", "C#6", "D6", "D#6", "E6"
-      ];
-      
-      // ギターの音域内でランダムに音階を選択
-      const randomNote = guitarRangeNotes[Math.floor(Math.random() * guitarRangeNotes.length)];
-      document.getElementById('outputNote').textContent = `音階: ${randomNote}`;
-      resetFretboard();
-      return randomNote;
+    function toggleSound() {
+      soundEnabled = !soundEnabled; // 音の再生状態を切り替える
+      const button = document.getElementById('toggleSoundButton');
+      button.textContent = soundEnabled ? "音をオフ" : "音をオン"; // ボタンのテキストを変更
     }
 
-    function checkAnswer(selectedNote) {
-      const correctNote = document.getElementById('outputNote').textContent.split(': ')[1];
-      if (selectedNote === correctNote) {
-        alert('正解！');
-      } else {
-        alert('不正解、もう一度挑戦してみてください。');
-      }
+    function playSound(note) {
+      // 音を再生するためのロジックを追加
+      console.log("再生中: " + note); // ここに音声再生の処理を追加
     }
-    
-    function resetFretboard() {
-      const fretElements = document.querySelectorAll('.fret');
-      fretElements.forEach(fret => {
-        fret.textContent = ''; // フレットのテキストを空にする
-        fret.classList.remove('highlight'); // ハイライトなどのクラスを削除
-        fret.style.backgroundColor = ''; // 背景色を初期状態に戻す
-      });
-    }
-    
-  // ランダムな音を取得して再生
-  function getRandomNote() {
-    // ギター音域に相当する音階リスト
-    const guitarRangeNotes = [
-      "E2", "F2", "F#2", "G2", "G#2", "A2", "A#2", "B2",
-      "C3", "C#3", "D3", "D#3", "E3", "F3", "F#3", "G3",
-      "G#3", "A3", "A#3", "B3", "C4", "C#4", "D4", "D#4",
-      "E4", "F4", "F#4", "G4", "G#4", "A4", "A#4", "B4",
-      "C5", "C#5", "D5", "D#5", "E5", "F5", "F#5", "G5",
-      "G#5", "A5", "A#5", "B5", "C6"
-    ];
 
-    // ランダムに音階を選択
-    const randomNote = guitarRangeNotes[Math.floor(Math.random() * guitarRangeNotes.length)];
-    document.getElementById('outputNote').textContent = `音階: ${randomNote}`;
-
-    // 音を再生
-    playNote(randomNote);
-  }
-
-  let soundEnabled = true;
-  
-
-  function playNote(note) {
-    if (soundEnabled) {
-      // 音階と周波数のマッピング
-      const noteFrequencies = {
-        "C3": 130.81, "C#3": 138.59, "D3": 146.83, "D#3": 155.56, "E3": 164.81,
-        "F3": 174.61, "F#3": 185.00, "G3": 196.00, "G#3": 207.65, "A3": 220.00,
-        "A#3": 233.08, "B3": 246.94, "C4": 261.63, "C#4": 277.18, "D4": 293.66,
-        "D#4": 311.13, "E4": 329.63, "F4": 349.23, "F#4": 369.99, "G4": 392.00,
-        "G#4": 415.30, "A4": 440.00, "A#4": 466.16, "B4": 493.88, "C5": 523.25,
-        "C#5": 554.37, "D5": 587.33, "D#5": 622.25, "E5": 659.26, "F5": 698.46,
-        "F#5": 739.99, "G5": 783.99, "G#5": 830.61, "A5": 880.00, "A#5": 932.33,
-        "B5": 987.77, "C6": 1046.50, "E2": 82.41, "F2": 87.31, "F#2": 92.50,
-        "G2": 98.00, "G#2": 103.83, "A2": 110.00, "A#2": 116.54, "B2": 123.47
-      };
-  
-      // Web Audio API で音を生成
-      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      const oscillator = audioCtx.createOscillator();
-      oscillator.type = 'sine'; // 音の種類（サイン波）
-      oscillator.frequency.setValueAtTime(noteFrequencies[note], audioCtx.currentTime);
-      oscillator.connect(audioCtx.destination);
-      oscillator.start();
-      oscillator.stop(audioCtx.currentTime + 1); // 1秒再生
-    }
-    
-    document.getElementById('toggleSoundButton').addEventListener('click', () => {
-      soundEnabled = !soundEnabled; // 音の有効/無効を切り替える
-      document.getElementById('toggleSoundButton').textContent = soundEnabled ? '音をオフ' : '音をオン'; // ボタンの表示を更新
-    });
-
-    document.getElementById('testButton').addEventListener('click', getRandomNote);
-
-  generateFretboard();
+    document.getElementById('toggleSoundButton').addEventListener('click', toggleSound);
+    generateFretboard();
   </script>
-  
-
 </body>
-
 </html>
