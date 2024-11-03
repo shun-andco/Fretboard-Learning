@@ -204,7 +204,6 @@
           fretDiv.addEventListener('click', () => {
             fretDiv.textContent = notes[string][fret];
             checkAnswer(notes[string][fret]);
-            playNote(notes[string][fret])
           });
     
           fretboard.appendChild(fretDiv);
@@ -232,6 +231,7 @@
           fretDiv.addEventListener('click', () => {
             if (fretDiv.textContent === '') {
               fretDiv.textContent = notes[string][fret];
+              playNote(notes[string][fret]);
             }
             checkAnswer(notes[string][fret]);
           });
