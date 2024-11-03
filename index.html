@@ -280,6 +280,9 @@
       });
     }
     
+  let currentNote = ''; // 現在のランダム音階
+  let remainingPositions = 0; // 残りのポジション数
+  
   // ランダムな音を取得して再生
   function getRandomNote() {
     // ギター音域に相当する音階リスト
@@ -298,13 +301,6 @@
     resetFretboard();
     // 音を再生
     playNote(randomNote);
-    return randomNote;
-  }
-  
-  let currentNote = ''; // 現在のランダム音階
-  let remainingPositions = 0; // 残りのポジション数
-  
-  function getRandomNote() {
     const strings = notes.length;
     const frets = notes[0].length;
     const randomString = Math.floor(Math.random() * strings);
@@ -314,7 +310,8 @@
     // 全てのポジションをカウント
     remainingPositions = countNotePositions(currentNote);
     document.getElementById('outputNote').textContent = `音階: ${currentNote} 残りポジション: ${remainingPositions}`;
-  }
+    return randomNote;
+  }  
   
   function countNotePositions(note) {
     let count = 0;
