@@ -325,8 +325,10 @@
       return count;
     }
     
+    let randomNote = getRandomNote()
+    
     function checkAnswer(selectedNote) {
-      const correctNote = getRandomNote();
+      const correctNote = randomNote;
       if (selectedNote === correctNote) {
         alert('正解！');
       } else {
