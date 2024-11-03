@@ -231,8 +231,8 @@
           fretDiv.addEventListener('click', () => {
             if (fretDiv.textContent === '') {
               fretDiv.textContent = notes[string][fret];
-              playNote(notes[string][fret]);
             }
+            playNote(notes[string][fret]);
             checkAnswer(notes[string][fret]);
           });
 
