@@ -325,12 +325,10 @@
       return count;
     }
     
-    let randomNote = getRandomNote()
-    
     function checkAnswer(selectedNote) {
-      const correctNote = randomNote;
+      const correctNote = document.getElementById('outputNote').textContent.split(': ')[1];
       alert(correctNote);
-      alert(randomNote);
+      alert(selectedNote);
       if (selectedNote === correctNote) {
         alert('正解！');
       } else {
