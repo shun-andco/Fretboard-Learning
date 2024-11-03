@@ -241,7 +241,7 @@
               fretDiv.textContent = notes[string][fret];
             }
             playNote(notes[string][fret]);
-            checkAnswer(randomNote);
+            checkAnswer(notes[string][fret],  fretdiv);
           });
 
           fretboard.appendChild(fretDiv);
