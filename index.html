@@ -217,6 +217,8 @@
       }
     }
 
+    let randomNote = getRandomNote()
+
     function generateFretboard() {
       const fretboard = document.getElementById('fretboard');
       fretboard.innerHTML = '';
@@ -239,7 +241,7 @@
               fretDiv.textContent = notes[string][fret];
             }
             playNote(notes[string][fret]);
-            checkAnswer(notes[string][fret]);
+            checkAnswer(randomNote);
           });
 
           fretboard.appendChild(fretDiv);
