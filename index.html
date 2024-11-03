@@ -102,7 +102,7 @@
       align-items: stretch;
     }
 
-    .note-button　{
+    .note-button, correct-note　{
       aspect-ratio: 1/1;
       padding: 1%;
       border: 1px solid #9c27b0;
@@ -126,6 +126,12 @@
     .note-button:hover {
       background-color: #9c27b0;
       /* 濃いピンクのホバー */
+      color: white;
+      transform: translateY(-2px);
+    }
+    
+    .correct-note:hover {
+      background-color: #4CAF50; /* 正解時のホバー色 (緑など) */
       color: white;
       transform: translateY(-2px);
     }
@@ -267,6 +273,12 @@
       const correctNote = document.getElementById('outputNote').textContent.split(': ')[1];
       if (selectedNote === correctNote) {
         alert('正解！');
+        // 選択された要素に `correct-note` クラスを追加
+        document.querySelectorAll('.fret').forEach(fret => {
+          if (fret.textContent === selectedNote) {
+            fret.classList.add('correct-note');
+          }
+        });
       } else {
         alert('不正解、もう一度挑戦してみてください。');
       }
