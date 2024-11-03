@@ -280,90 +280,90 @@
       });
     }
     
-  let currentNote = ''; // 現在のランダム音階
-  let remainingPositions = 0; // 残りのポジション数
-  
-  // ランダムな音を取得して再生
-  function getRandomNote() {
-    // ギター音域に相当する音階リスト
-    const guitarRangeNotes = [
-      "E2", "F2", "F#2", "G2", "G#2", "A2", "A#2", "B2",
-      "C3", "C#3", "D3", "D#3", "E3", "F3", "F#3", "G3",
-      "G#3", "A3", "A#3", "B3", "C4", "C#4", "D4", "D#4",
-      "E4", "F4", "F#4", "G4", "G#4", "A4", "A#4", "B4",
-      "C5", "C#5", "D5", "D#5", "E5", "F5", "F#5", "G5",
-      "G#5", "A5", "A#5", "B5", "C6"
-    ];
-
-    // ランダムに音階を選択
-    const randomNote = guitarRangeNotes[Math.floor(Math.random() * guitarRangeNotes.length)];
-    document.getElementById('outputNote').textContent = `音階: ${randomNote}`;
-    resetFretboard();
-    // 音を再生
-    playNote(randomNote);
-    const strings = notes.length;
-    const frets = notes[0].length;
-    const randomString = Math.floor(Math.random() * strings);
-    const randomFret = Math.floor(Math.random() * frets);
-    currentNote = notes[randomString][randomFret];
+    let currentNote = ''; // 現在のランダム音階
+    let remainingPositions = 0; // 残りのポジション数
     
-    // 全てのポジションをカウント
-    remainingPositions = countNotePositions(currentNote);
-    document.getElementById('outputNote').textContent = `音階: ${currentNote} 残りポジション: ${remainingPositions}`;
-    return randomNote;
-  }  
+    // ランダムな音を取得して再生
+    function getRandomNote() {
+      // ギター音域に相当する音階リスト
+      const guitarRangeNotes = [
+        "E2", "F2", "F#2", "G2", "G#2", "A2", "A#2", "B2",
+        "C3", "C#3", "D3", "D#3", "E3", "F3", "F#3", "G3",
+        "G#3", "A3", "A#3", "B3", "C4", "C#4", "D4", "D#4",
+        "E4", "F4", "F#4", "G4", "G#4", "A4", "A#4", "B4",
+        "C5", "C#5", "D5", "D#5", "E5", "F5", "F#5", "G5",
+        "G#5", "A5", "A#5", "B5", "C6"
+      ];
   
-  function countNotePositions(note) {
-    let count = 0;
-    for (let string = 0; string < notes.length; string++) {
-      for (let fret = 0; fret < notes[string].length; fret++) {
-        if (notes[string][fret] === note) {
-          count++;
+      // ランダムに音階を選択
+      const randomNote = guitarRangeNotes[Math.floor(Math.random() * guitarRangeNotes.length)];
+      document.getElementById('outputNote').textContent = `音階: ${randomNote}`;
+      resetFretboard();
+      // 音を再生
+      playNote(randomNote);
+      const strings = notes.length;
+      const frets = notes[0].length;
+      const randomString = Math.floor(Math.random() * strings);
+      const randomFret = Math.floor(Math.random() * frets);
+      currentNote = notes[randomString][randomFret];
+      
+      // 全てのポジションをカウント
+      remainingPositions = countNotePositions(currentNote);
+      document.getElementById('outputNote').textContent = `音階: ${currentNote} 残りポジション: ${remainingPositions}`;
+      return randomNote;
+    }  
+    
+    function countNotePositions(note) {
+      let count = 0;
+      for (let string = 0; string < notes.length; string++) {
+        for (let fret = 0; fret < notes[string].length; fret++) {
+          if (notes[string][fret] === note) {
+            count++;
+          }
+        }
+      }
+      return count;
+    }
+    
+    function checkAnswer(selectedNote) {
+      if (selectedNote === currentNote) {
+        remainingPositions--;
+        document.getElementById('outputNote').textContent = `音階: ${currentNote} 残りポジション: ${remainingPositions}`;
+        
+        if (remainingPositions === 0) {
+          alert('全てのポジションをクリックしました！');
         }
       }
     }
-    return count;
-  }
+    
+    function playNote(note) {
+      // 音階と周波数のマッピング
+      const noteFrequencies = {
+        "C3": 130.81, "C#3": 138.59, "D3": 146.83, "D#3": 155.56, "E3": 164.81,
+        "F3": 174.61, "F#3": 185.00, "G3": 196.00, "G#3": 207.65, "A3": 220.00,
+        "A#3": 233.08, "B3": 246.94, "C4": 261.63, "C#4": 277.18, "D4": 293.66,
+        "D#4": 311.13, "E4": 329.63, "F4": 349.23, "F#4": 369.99, "G4": 392.00,
+        "G#4": 415.30, "A4": 440.00, "A#4": 466.16, "B4": 493.88, "C5": 523.25,
+        "C#5": 554.37, "D5": 587.33, "D#5": 622.25, "E5": 659.26, "F5": 698.46,
+        "F#5": 739.99, "G5": 783.99, "G#5": 830.61, "A5": 880.00, "A#5": 932.33,
+        "B5": 987.77, "C6": 1046.50, "E2": 82.41, "F2": 87.31, "F#2": 92.50,
+        "G2": 98.00, "G#2": 103.83, "A2": 110.00, "A#2": 116.54, "B2": 123.47
+      };
   
-  function checkAnswer(selectedNote) {
-    if (selectedNote === currentNote) {
-      remainingPositions--;
-      document.getElementById('outputNote').textContent = `音階: ${currentNote} 残りポジション: ${remainingPositions}`;
-      
-      if (remainingPositions === 0) {
-        alert('全てのポジションをクリックしました！');
-      }
+      // Web Audio API で音を生成
+      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const oscillator = audioCtx.createOscillator();
+      oscillator.type = 'sine'; // 音の種類（サイン波）
+      oscillator.frequency.setValueAtTime(noteFrequencies[note], audioCtx.currentTime);
+      oscillator.connect(audioCtx.destination);
+      oscillator.start();
+      oscillator.stop(audioCtx.currentTime + 1); // 1秒再生
     }
-  }
   
-  function playNote(note) {
-    // 音階と周波数のマッピング
-    const noteFrequencies = {
-      "C3": 130.81, "C#3": 138.59, "D3": 146.83, "D#3": 155.56, "E3": 164.81,
-      "F3": 174.61, "F#3": 185.00, "G3": 196.00, "G#3": 207.65, "A3": 220.00,
-      "A#3": 233.08, "B3": 246.94, "C4": 261.63, "C#4": 277.18, "D4": 293.66,
-      "D#4": 311.13, "E4": 329.63, "F4": 349.23, "F#4": 369.99, "G4": 392.00,
-      "G#4": 415.30, "A4": 440.00, "A#4": 466.16, "B4": 493.88, "C5": 523.25,
-      "C#5": 554.37, "D5": 587.33, "D#5": 622.25, "E5": 659.26, "F5": 698.46,
-      "F#5": 739.99, "G5": 783.99, "G#5": 830.61, "A5": 880.00, "A#5": 932.33,
-      "B5": 987.77, "C6": 1046.50, "E2": 82.41, "F2": 87.31, "F#2": 92.50,
-      "G2": 98.00, "G#2": 103.83, "A2": 110.00, "A#2": 116.54, "B2": 123.47
-    };
-
-    // Web Audio API で音を生成
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    const oscillator = audioCtx.createOscillator();
-    oscillator.type = 'sine'; // 音の種類（サイン波）
-    oscillator.frequency.setValueAtTime(noteFrequencies[note], audioCtx.currentTime);
-    oscillator.connect(audioCtx.destination);
-    oscillator.start();
-    oscillator.stop(audioCtx.currentTime + 1); // 1秒再生
-  }
-
-  document.getElementById('testButton').addEventListener('click', getRandomNote);
-  document.getElementById('testButton').addEventListener('click', playNote);
-
-  generateFretboard();
+    document.getElementById('testButton').addEventListener('click', getRandomNote);
+    document.getElementById('testButton').addEventListener('click', playNote);
+  
+    generateFretboard();
   </script>
   
 
