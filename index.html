@@ -102,7 +102,7 @@
       align-items: stretch;
     }
 
-    .note-button, correct-note　{
+    .note-button　{
       aspect-ratio: 1/1;
       padding: 1%;
       border: 1px solid #9c27b0;
@@ -130,9 +130,9 @@
       transform: translateY(-2px);
     }
     
-    .correct-note:hover {
-      background-color: #4CAF50; /* 正解時のホバー色 (緑など) */
-      color: white;
+    .correct-hover:hover {
+      background-color: #4caf50; /* hover時に背景色を変更 */
+      color: white; /* テキスト色も変更 */
       transform: translateY(-2px);
     }
 
@@ -268,21 +268,6 @@
         fretboard.appendChild(fretNumberDiv);
       }
     }
-
-    function checkAnswer(selectedNote) {
-      const correctNote = document.getElementById('outputNote').textContent.split(': ')[1];
-      if (selectedNote === correctNote) {
-        alert('正解！');
-        // 選択された要素に `correct-note` クラスを追加
-        document.querySelectorAll('.fret').forEach(fret => {
-          if (fret.textContent === selectedNote) {
-            fret.classList.add('correct-note');
-          }
-        });
-      } else {
-        alert('不正解、もう一度挑戦してみてください。');
-      }
-    }
     
     function resetFretboard() {
       const fretElements = document.querySelectorAll('.fret');
@@ -338,17 +323,16 @@
       return count;
     }
     
-    function checkAnswer(selectedNote) {
-      if (selectedNote === currentNote) {
-        remainingPositions--;
-        document.getElementById('outputNote').textContent = `音階: ${currentNote} 残りポジション: ${remainingPositions}`;
-        
-        if (remainingPositions === 0) {
-          alert('全てのポジションをクリックしました！');
-        }
+    function checkAnswer(selectedNote, fretDiv) {
+      const correctNote = document.getElementById('outputNote').textContent.split(': ')[1];
+      if (selectedNote === correctNote) {
+        alert('正解！');
+        fretDiv.classList.add('correct-hover'); // hover用のクラスを追加
+      } else {
+        alert('不正解、もう一度挑戦してみてください。');
       }
     }
-    
+        
     function playNote(note) {
       // 音階と周波数のマッピング
       const noteFrequencies = {
