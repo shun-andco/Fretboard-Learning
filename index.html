@@ -241,7 +241,7 @@
               fretDiv.textContent = notes[string][fret];
             }
             playNote(notes[string][fret]);
-            checkAnswer(notes[string][fret], fretdiv);
+            checkAnswer(notes[string][fret]);
           });
 
           fretboard.appendChild(fretDiv);
@@ -325,11 +325,10 @@
       return count;
     }
     
-    function checkAnswer(selectedNote, fretDiv) {
+    function checkAnswer(selectedNote) {
       const correctNote = document.getElementById('outputNote').textContent.split(': ')[1];
       if (selectedNote === correctNote) {
         alert('正解！');
-        fretDiv.classList.add('correct-hover'); // hover用のクラスを追加
       } else {
         alert('不正解、もう一度挑戦してみてください。');
       }
