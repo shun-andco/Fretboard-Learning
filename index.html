@@ -192,7 +192,22 @@
       ["E2", "F2", "F#2", "G2", "G#2", "A2", "A#2", "B2", "C3", "C#3", "D3", "D#3", "E3", "F3", "F#3", "G3", "G#3", "A3", "A#3", "B3", "C4", "C#4", "D4", "D#4", "E4"]
     ];
 
+    document.getElementById('toggleSoundButton').addEventListener('click', () => {
+      isSoundEnabled = !isSoundEnabled;
+      document.getElementById('toggleSoundButton').textContent = isSoundEnabled ? '音をオフ' : '音をオン';
+    });
 
+    function playNote(note) {
+      if (isSoundEnabled) {
+        const audio = new Audio(`path/to/sounds/${note}.mp3`);
+        audio.play();
+      }
+    }
+
+    function checkAnswer(note) {
+      document.getElementById('outputNote').textContent = `音階: ${note}`;
+      playNote(note);
+    }
     
     function generateFretboard() {
       const fretboard = document.getElementById('fretboard');
@@ -359,7 +374,7 @@
     }
   }
 
-  let soundEnabled = true;
+  let isSoundEnabled = true;
   
 
   function playNote(note) {
