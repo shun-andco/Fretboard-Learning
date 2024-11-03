@@ -320,6 +320,44 @@
     // 音を再生
     playNote(randomNote);
   }
+  
+  let currentNote = ''; // 現在のランダム音階
+  let remainingPositions = 0; // 残りのポジション数
+  
+  function getRandomNote() {
+    const strings = notes.length;
+    const frets = notes[0].length;
+    const randomString = Math.floor(Math.random() * strings);
+    const randomFret = Math.floor(Math.random() * frets);
+    currentNote = notes[randomString][randomFret];
+    
+    // 全てのポジションをカウント
+    remainingPositions = countNotePositions(currentNote);
+    document.getElementById('outputNote').textContent = `音階: ${currentNote} 残りポジション: ${remainingPositions}`;
+  }
+  
+  function countNotePositions(note) {
+    let count = 0;
+    for (let string = 0; string < notes.length; string++) {
+      for (let fret = 0; fret < notes[string].length; fret++) {
+        if (notes[string][fret] === note) {
+          count++;
+        }
+      }
+    }
+    return count;
+  }
+  
+  function checkAnswer(selectedNote) {
+    if (selectedNote === currentNote) {
+      remainingPositions--;
+      document.getElementById('outputNote').textContent = `音階: ${currentNote} 残りポジション: ${remainingPositions}`;
+      
+      if (remainingPositions === 0) {
+        alert('全てのポジションをクリックしました！');
+      }
+    }
+  }
 
   let soundEnabled = true;
   
