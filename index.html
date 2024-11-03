@@ -217,7 +217,7 @@
       }
     }
 
-    let randomNote = getRandomNote();
+    let randomedNote = getRandomNote();
 
     function generateFretboard() {
       const fretboard = document.getElementById('fretboard');
@@ -241,7 +241,7 @@
               fretDiv.textContent = notes[string][fret];
             }
             playNote(notes[string][fret]);
-            checkAnswer(randomNote);
+            checkAnswer(randomedNote);
           });
 
           fretboard.appendChild(fretDiv);
