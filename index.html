@@ -330,7 +330,7 @@
       remainingPositions = countNotePositions(correctNote);
       if (selectedNote === correctNote) {
         alert('正解！');
-        fretDiv.style.setProperty('--correct-color', 'lightgreen')
+        /* fretDiv.style.setProperty('--correct-color', 'lightgreen') */
         remainingPositions--;
         alert(remainingPositions);
         document.getElementById('outputNote').innerHTML = `音階: ${correctNote}<br>残り: ${remainingPositions}`;
