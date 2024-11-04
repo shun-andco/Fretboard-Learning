@@ -240,6 +240,9 @@
             }
             playNote(notes[string][fret]);
             checkAnswer(notes[string][fret], fretDiv);
+            remainingPositions = countNotePositions(notes[string][fret]);
+            document.getElementById('outputNote').innerHTML = `残り: ${remainingPositions}`;
+      
           });
 
           fretboard.appendChild(fretDiv);
