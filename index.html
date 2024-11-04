@@ -236,11 +236,11 @@
           fretDiv.textContent = '';
           fretDiv.addEventListener('click', () => {
             if (fretDiv.textContent === '') {
+              randomNote = getRandomNote();
               /* const correctNote = document.getElementById('outputNote').innerHTML.split('<br>')[0].split(': ')[1];
               alert(correctNote); */
               fretDiv.textContent = notes[string][fret];
               alert(notes[string][fret]);
-              alert(fretDiv);
             }
             remainingPositions = countNotePositions(correctNote);
             playNote(notes[string][fret]);
@@ -375,9 +375,13 @@
       oscillator.stop(audioCtx.currentTime + 1); // 1秒再生
     }
   
-    document.getElementById('testButton').addEventListener('click', getRandomNote);
-  
     generateFretboard();
+  
+    document.getElementById('testButton').addEventListener('click', () => {
+      const correctNote= getRandomNote();
+      console.log(correctNote); // 取得した戻り値を表示する例
+    });
+  
   </script>
 </body>
 </html>
