@@ -335,6 +335,7 @@
       } else {
         alert('不正解、もう一度挑戦してみてください。');
       }
+      alert(remainingPositions);
       document.getElementById('outputNote').innerHTML = `音階: ${correctNote}<br>残り: ${remainingPositions}`;
       if (remainingPositions === 0) {
         alert('全てのポジションをクリックしました！');
