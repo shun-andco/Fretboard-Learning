@@ -54,15 +54,18 @@
       align-items: center;
       border-radius: 8px;
       transition: background-color 0.3s, transform 0.2s;
-      background-color: #f1f1f1;
+      /* background-color: #f1f1f1; */
       border: 1px solid #d1c4e9;
       font-size: clamp(6px, 10px, 12px); /* 推奨値を調整 */
       font-weight: 500;
       box-sizing: border-box;
+      --correct-color: transparent; /* デフォルトは透明 */
+      background-color: var(--correct-color);
     }
 
     .fret:hover {
       background-color: rgba(128, 0, 128, 0.2);
+      
       /* パープルのホバー */
     }
 
@@ -331,7 +334,7 @@
       /* alert(selectedNote); */
       if (selectedNote === correctNote) {
         alert('正解！');
-        fretDiv.classList.add('correct-hover'); // hover用のクラスを追加
+        fretDiv.style.setProperty('--correct-color', 'lightgreen')
       } else {
         alert('不正解、もう一度挑戦してみてください。');
       }
