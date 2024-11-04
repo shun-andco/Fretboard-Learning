@@ -197,8 +197,6 @@
     function generateFretboardcontainer() {
       const fretboard = document.getElementById('fretboard');
       fretboard.innerHTML = '';
-
-    function generateFretboard(correctNote) {
       // フレット番号の表示
       for (let fret = 0; fret <= 24; fret++) {
         const fretNumberDiv = document.createElement('div');
@@ -212,25 +210,6 @@
           const fretDiv = document.createElement('div');
           fretDiv.classList.add('fret');
           fretDiv.textContent = '';
-          fretDiv.addEventListener('click', () => {
-            if (fretDiv.textContent === '') {
-              randomNote = getRandomNote();
-              /* const correctNote = document.getElementById('outputNote').innerHTML.split('<br>')[0].split(': ')[1]; */
-              alert(correctNote);
-              fretDiv.textContent = notes[string][fret];
-              alert(notes[string][fret]);
-            }
-            remainingPositions = countNotePositions(correctNote);
-            playNote(notes[string][fret]);
-            checkAnswer(notes[string][fret], fretDiv);
-            document.getElementById('outputNote').innerHTML = `音階: ${correctNote}<br>残り: ${remainingPositions}`;
-            if (remainingPositions === 0) {
-              alert('全てのポジションをクリックしました！');
-            }
-          });
-
-          fretboard.appendChild(fretDiv);
-        }
       }
       
       for (let fret = 0; fret <= 24; fret++) {
@@ -254,6 +233,26 @@
         }
         fretboard.appendChild(fretNumberDiv);
       }
+
+    function generateFretboard(correctNote) {
+      // フレット番号の表示
+      fretDiv.addEventListener('click', () => {
+        if (fretDiv.textContent === '') {
+          randomNote = getRandomNote();
+          /* const correctNote = document.getElementById('outputNote').innerHTML.split('<br>')[0].split(': ')[1]; */
+          alert(correctNote);
+          fretDiv.textContent = notes[string][fret];
+          alert(notes[string][fret]);
+        }
+        remainingPositions = countNotePositions(correctNote);
+        playNote(notes[string][fret]);
+        checkAnswer(notes[string][fret], fretDiv);
+        document.getElementById('outputNote').innerHTML = `音階: ${correctNote}<br>残り: ${remainingPositions}`;
+        if (remainingPositions === 0) {
+          alert('全てのポジションをクリックしました！');
+        }
+      });
+      fretboard.appendChild(fretDiv);
     }
     
     function resetFretboard() {
