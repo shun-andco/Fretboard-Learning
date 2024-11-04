@@ -241,7 +241,7 @@
             playNote(notes[string][fret]);
             checkAnswer(notes[string][fret], fretDiv);
             remainingPositions = countNotePositions(currentNote);
-            document.getElementById('outputNote').textContent = `音階: ${currentNote} 残りポジション: ${remainingPositions}`;
+            document.getElementById('outputNote').textContent = `音階: ${currentNote}<div>残りポジション: ${remainingPositions}`;
 
           });
 
@@ -328,8 +328,8 @@
     
     function checkAnswer(selectedNote, fretdiv) {
       const correctNote = document.getElementById('outputNote').innerHTML.split('<br>')[0].split(': ')[1];
-      /* alert(correctNote); */
-      /* alert(selectedNote); */
+      alert(correctNote); 
+      alert(selectedNote); 
       if (selectedNote === correctNote) {
         alert('正解！');
         fretDiv.style.setProperty('--correct-color', 'lightgreen')
