@@ -197,30 +197,18 @@
     function generateFretboardcontainer() {
       const fretboard = document.getElementById('fretboard');
       fretboard.innerHTML = '';
+    
       // フレット番号の表示
       for (let fret = 0; fret <= 24; fret++) {
         const fretNumberDiv = document.createElement('div');
         fretNumberDiv.classList.add('fret-number');
         fretNumberDiv.textContent = fret === 0 ? '' : fret;
-        fretboard.appendChild(fretNumberDiv);
-      }
-
-      for (let string = 0; string < notes.length; string++) {
-        for (let fret = 0; fret < notes[string].length; fret++) {
-          const fretDiv = document.createElement('div');
-          fretDiv.classList.add('fret');
-          fretDiv.textContent = '';
-      }
-      
-      for (let fret = 0; fret <= 24; fret++) {
-        const fretNumberDiv = document.createElement('div');
-        fretNumberDiv.classList.add('fret-number');
-        if (fret === 3 || fret === 5 || fret == 7 || fret == 9 || fret == 15 || fret == 17 || fret == 19 || fret == 21) {
-          // 3フレットと5フレットに点を追加
+    
+        if (fret === 3 || fret === 5 || fret === 7 || fret === 9 || fret === 15 || fret === 17 || fret === 19 || fret === 21) {
           const dot = document.createElement('div');
           dot.classList.add('dot');
           fretNumberDiv.appendChild(dot);
-        } else if (fret == 12 || fret == 24) {
+        } else if (fret === 12 || fret === 24) {
           const doubleDotDiv = document.createElement('div');
           doubleDotDiv.classList.add('double-dot');
           const dot1 = document.createElement('div');
@@ -231,12 +219,39 @@
           doubleDotDiv.appendChild(dot2);
           fretNumberDiv.appendChild(doubleDotDiv);
         }
+    
         fretboard.appendChild(fretNumberDiv);
+      }
+    
+      // 各弦に対するフレットを生成
+      for (let string = 0; string < notes.length; string++) {
+        for (let fret = 0; fret < notes[string].length; fret++) {
+          const fretDiv = document.createElement('div');
+          fretDiv.classList.add('fret');
+          fretDiv.textContent = '';
+    
+          fretDiv.addEventListener('click', () => {
+            if (fretDiv.textContent === '') {
+              const correctNote = document.getElementById('outputNote').textContent.split(': ')[1];
+              alert(correctNote);
+              fretDiv.textContent = notes[string][fret];
+              alert(notes[string][fret]);
+            }
+            const remainingPositions = countNotePositions(correctNote);
+            playNote(notes[string][fret]);
+            checkAnswer(notes[string][fret], fretDiv);
+            document.getElementById('outputNote').innerHTML = `音階: ${correctNote}<br>残り: ${remainingPositions}`;
+            if (remainingPositions === 0) {
+              alert('全てのポジションをクリックしました！');
+            }
+          });
+    
+          fretboard.appendChild(fretDiv);
+        }
       }
     }
 
     function generateFretboard(correctNote) {
-      // フレット番号の表示
       fretDiv.addEventListener('click', () => {
         if (fretDiv.textContent === '') {
           randomNote = getRandomNote();
