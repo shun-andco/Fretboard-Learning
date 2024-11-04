@@ -326,7 +326,7 @@
     }
     
     function checkAnswer(selectedNote) {
-      const correctNote = document.getElementById('outputNote').textContent.split('\n')[0].split(': ')[1];
+      const correctNote = document.getElementById('outputNote').textContent.split('<br>')[0].split(': ')[1];
       alert(correctNote);
       alert(selectedNote);
       if (selectedNote === correctNote) {
