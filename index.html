@@ -230,7 +230,7 @@
           fretDiv.classList.add('fret');
           fretDiv.textContent = '';
     
-          fretDiv.addEventListener('click', () => {
+          /* fretDiv.addEventListener('click', () => {
             if (fretDiv.textContent === '') {
               const correctNote = document.getElementById('outputNote').textContent.split(': ')[1];
               alert(correctNote);
@@ -243,8 +243,8 @@
             document.getElementById('outputNote').innerHTML = `音階: ${correctNote}<br>残り: ${remainingPositions}`;
             if (remainingPositions === 0) {
               alert('全てのポジションをクリックしました！');
-            }
-          });
+            } 
+          }); */ 
     
           fretboard.appendChild(fretDiv);
         }
