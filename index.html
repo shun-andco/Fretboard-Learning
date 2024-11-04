@@ -132,12 +132,6 @@
       color: white;
       transform: translateY(-2px);
     }
-    
-    .correct-hover:hover {
-      background-color: #4caf50; /* hover時に背景色を変更 */
-      color: white; /* テキスト色も変更 */
-      transform: translateY(-2px);
-    }
 
     .selected {
       background-color: #5e35b1;
@@ -213,6 +207,7 @@
           fretDiv.addEventListener('click', () => {
             fretDiv.textContent = notes[string][fret];
             checkAnswer(notes[string][fret]);
+            fretDiv.style.setProperty('--correct-color', rgba(128, 0, 128, 0.2))
           });
     
           fretboard.appendChild(fretDiv);
