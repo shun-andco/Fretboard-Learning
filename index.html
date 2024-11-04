@@ -228,48 +228,41 @@
         for (let fret = 0; fret < notes[string].length; fret++) {
           const fretDiv = document.createElement('div');
           fretDiv.classList.add('fret');
-          fretDiv.textContent = '';
+          fretDiv.textContent = ''; // 初期表示は空にする
+          fretDiv.dataset.string = string; // 弦番号をデータ属性として追加
+          fretDiv.dataset.fret = fret; // フレット番号をデータ属性として追加
     
-          /* fretDiv.addEventListener('click', () => {
-            if (fretDiv.textContent === '') {
-              const correctNote = document.getElementById('outputNote').textContent.split(': ')[1];
-              alert(correctNote);
-              fretDiv.textContent = notes[string][fret];
-              alert(notes[string][fret]);
-            }
+          fretboard.appendChild(fretDiv);
+        }
+      }
+    }
+    
+    function generateFretboard() {
+      const fretboard = document.getElementById('fretboard');
+      const fretDivs = fretboard.getElementsByClassName('fret');
+    
+      for (let i = 0; i < fretDivs.length; i++) {
+        const fretDiv = fretDivs[i];
+    
+        fretDiv.addEventListener('click', () => {
+          if (fretDiv.textContent === '') {
+            const string = parseInt(fretDiv.dataset.string, 10);
+            const fret = parseInt(fretDiv.dataset.fret, 10);
+            const correctNote = document.getElementById('outputNote').textContent.split(': ')[1];
+    
+            fretDiv.textContent = notes[string][fret];
             const remainingPositions = countNotePositions(correctNote);
             playNote(notes[string][fret]);
             checkAnswer(notes[string][fret], fretDiv);
             document.getElementById('outputNote').innerHTML = `音階: ${correctNote}<br>残り: ${remainingPositions}`;
             if (remainingPositions === 0) {
               alert('全てのポジションをクリックしました！');
-            } 
-          }); */ 
-    
-          fretboard.appendChild(fretDiv);
-        }
+            }
+          }
+        });
       }
     }
 
-    function generateFretboard(correctNote) {
-      fretDiv.addEventListener('click', () => {
-        if (fretDiv.textContent === '') {
-          randomNote = getRandomNote();
-          /* const correctNote = document.getElementById('outputNote').innerHTML.split('<br>')[0].split(': ')[1]; */
-          alert(correctNote);
-          fretDiv.textContent = notes[string][fret];
-          alert(notes[string][fret]);
-        }
-        remainingPositions = countNotePositions(correctNote);
-        playNote(notes[string][fret]);
-        checkAnswer(notes[string][fret], fretDiv);
-        document.getElementById('outputNote').innerHTML = `音階: ${correctNote}<br>残り: ${remainingPositions}`;
-        if (remainingPositions === 0) {
-          alert('全てのポジションをクリックしました！');
-        }
-      });
-      fretboard.appendChild(fretDiv);
-    }
     
     function resetFretboard() {
       const fretElements = document.querySelectorAll('.fret');
