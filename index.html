@@ -237,7 +237,7 @@
       }
     }
     
-    function generateFretboard() {
+    function generateFretboard(correctNote) {
       const fretboard = document.getElementById('fretboard');
       const fretDivs = fretboard.getElementsByClassName('fret');
     
@@ -248,8 +248,6 @@
           if (fretDiv.textContent === '') {
             const string = parseInt(fretDiv.dataset.string, 10);
             const fret = parseInt(fretDiv.dataset.fret, 10);
-            const correctNote = document.getElementById('outputNote').textContent.split(': ')[1];
-    
             fretDiv.textContent = notes[string][fret];
             const remainingPositions = countNotePositions(correctNote);
             playNote(notes[string][fret]);
