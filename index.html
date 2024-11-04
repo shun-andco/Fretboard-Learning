@@ -241,7 +241,7 @@
               fretDiv.textContent = notes[string][fret];
             }
             playNote(notes[string][fret]);
-            checkAnswer(notes[string][fret]);
+            checkAnswer(notes[string][fret], fretdiv);
           });
 
           fretboard.appendChild(fretDiv);
@@ -325,7 +325,7 @@
       return count;
     }
     
-    function checkAnswer(selectedNote) {
+    function checkAnswer(selectedNote, fretdiv) {
       const correctNote = document.getElementById('outputNote').innerHTML.split('<br>')[0].split(': ')[1];
       /* alert(correctNote); */
       /* alert(selectedNote); */
