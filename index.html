@@ -309,8 +309,7 @@
       
       // 全てのポジションをカウント
       remainingPositions = countNotePositions(currentNote);
-      document.getElementById('outputNote').textContent = `音階: ${currentNote}`;
-      /* document.getElementById('outputNote').textContent = `のこり: ${remainingPositions}`; */
+      document.getElementById('outputNote').textContent = `音階: ${currentNote} \n 残り: ${remainingPositions}`;
       return randomNote;
     }  
     
