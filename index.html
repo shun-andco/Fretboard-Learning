@@ -194,33 +194,11 @@
       ["E2", "F2", "F#2", "G2", "G#2", "A2", "A#2", "B2", "C3", "C#3", "D3", "D#3", "E3", "F3", "F#3", "G3", "G#3", "A3", "A#3", "B3", "C4", "C#4", "D4", "D#4", "E4"]
     ];
     
-    function generateFretboard() {
+    function generateFretboardcontainer() {
       const fretboard = document.getElementById('fretboard');
       fretboard.innerHTML = '';
-    
-      for (let string = 0; string < notes.length; string++) {
-        for (let fret = 0; fret < notes[string].length; fret++) {
-          const fretDiv = document.createElement('div');
-          fretDiv.classList.add('fret');
-    
-          // フレットをクリックしたときに音名を表示
-          fretDiv.addEventListener('click', () => {
-            fretDiv.textContent = notes[string][fret];
-            checkAnswer(notes[string][fret]);
-            fretDiv.style.setProperty('--correct-color', rgba(128, 0, 128, 0.2))
-          });
-    
-          fretboard.appendChild(fretDiv);
-        }
-      }
-    }
 
-
-
-    function generateFretboard() {
-      const fretboard = document.getElementById('fretboard');
-      fretboard.innerHTML = '';
-      
+    function generateFretboard(correctNote) {
       // フレット番号の表示
       for (let fret = 0; fret <= 24; fret++) {
         const fretNumberDiv = document.createElement('div');
@@ -237,8 +215,8 @@
           fretDiv.addEventListener('click', () => {
             if (fretDiv.textContent === '') {
               randomNote = getRandomNote();
-              /* const correctNote = document.getElementById('outputNote').innerHTML.split('<br>')[0].split(': ')[1];
-              alert(correctNote); */
+              /* const correctNote = document.getElementById('outputNote').innerHTML.split('<br>')[0].split(': ')[1]; */
+              alert(correctNote);
               fretDiv.textContent = notes[string][fret];
               alert(notes[string][fret]);
             }
@@ -375,10 +353,11 @@
       oscillator.stop(audioCtx.currentTime + 1); // 1秒再生
     }
   
-    generateFretboard();
+    generateFretboardcontainer()
   
     document.getElementById('testButton').addEventListener('click', () => {
       const correctNote= getRandomNote();
+      generateFretboard(correctNote);
       alert(correctNote); // 取得した戻り値を表示する例
     });
   
