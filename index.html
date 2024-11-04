@@ -331,6 +331,7 @@
       /* alert(selectedNote); */
       if (selectedNote === correctNote) {
         alert('正解！');
+        fretDiv.classList.add('correct-hover'); // hover用のクラスを追加
       } else {
         alert('不正解、もう一度挑戦してみてください。');
       }
