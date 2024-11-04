@@ -240,9 +240,9 @@
             }
             playNote(notes[string][fret]);
             checkAnswer(notes[string][fret], fretDiv);
-            remainingPositions = countNotePositions(notes[string][fret]);
-            document.getElementById('outputNote').innerHTML = `残り: ${remainingPositions}`;
-      
+            remainingPositions = countNotePositions(currentNote);
+            document.getElementById('outputNote').textContent = `音階: ${currentNote} 残りポジション: ${remainingPositions}`;
+
           });
 
           fretboard.appendChild(fretDiv);
