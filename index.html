@@ -311,12 +311,20 @@
       return randomNote;
     }  
     
+    // 既に表示されているかどうかを追跡するための2次元配列を用意
+    let displayedPositions = Array.from({ length: notes.length }, () => 
+      Array(notes[0].length).fill(false)
+    );
+    
     function countNotePositions(note) {
       let count = 0;
       for (let string = 0; string < notes.length; string++) {
         for (let fret = 0; fret < notes[string].length; fret++) {
-          if (notes[string][fret] === note) {
+          // 指定されたノートが一致し、まだ表示されていない場合のみカウント
+          if (notes[string][fret] === note && !displayedPositions[string][fret]) {
             count++;
+            // カウントした位置は表示済みとする
+            displayedPositions[string][fret] = true;
           }
         }
       }
@@ -340,6 +348,7 @@
       } else {
         alert('不正解、もう一度挑戦してみてください。');
       }
+      return remainingPositions;
     }
         
     function playNote(note) {
