@@ -296,11 +296,11 @@
       const frets = notes[0].length;
       const randomString = Math.floor(Math.random() * strings);
       const randomFret = Math.floor(Math.random() * frets);
-      currentNote = notes[randomString][randomFret];
+      /* currentNote = notes[randomString][randomFret]; */
       
       // 全てのポジションをカウント
-      remainingPositions = countNotePositions(currentNote);
-      document.getElementById('outputNote').innerHTML = `音階: ${currentNote}<br>残り: ${remainingPositions}`;
+      remainingPositions = countNotePositions(randomNote);
+      document.getElementById('outputNote').innerHTML = `音階: ${randomNote}<br>残り: ${remainingPositions}`;
       return randomNote;
     }  
     
@@ -362,7 +362,7 @@
     generateFretboardcontainer();
   
     document.getElementById('testButton').addEventListener('click', () => {
-      const correctNote= getRandomNote();
+      const correctNote = getRandomNote();
       generateFretboard(correctNote);
       alert(correctNote); // 取得した戻り値を表示する例
     });
