@@ -221,6 +221,8 @@
               document.getElementById('outputNote').innerHTML = `音階: ${correctNote}<br>残り: ${remainingPositions}`;
               if (remainingPositions === 0) {
                 alert('全てのポジションをクリックしました！');
+                correctNote = getRandomNote();
+                remainingPositions = countNotePositions(correctNote);
               }
             }
           });
