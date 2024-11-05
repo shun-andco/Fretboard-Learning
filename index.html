@@ -315,11 +315,11 @@
       const correctNote = document.getElementById('outputNote').innerHTML.split('<br>')[0].split(': ')[1];
       /* remainingPositions = countNotePositions(correctNote); */
       if (selectedNote === correctNote) {
-        alert('正解！');
+        showSnackbar('正解！');
         remainingPositions--;
         /* fretDiv.style.setProperty('--correct-color', 'lightgreen') */
       } else {
-        alert('不正解、もう一度挑戦してみてください。');
+        showSnackbar('不正解、もう一度挑戦してみてください。');
       }
       return remainingPositions;
     }
@@ -359,7 +359,17 @@
       oscillator.start();
       oscillator.stop(audioCtx.currentTime + 1); // 1秒再生
     }
+    
+    function showSnackbar(message) {
+      const snackbar = document.getElementById("snackbar");
+      snackbar.textContent = message; // メッセージを設定
+      snackbar.className = "show"; // スナックバーを表示
   
+      setTimeout(() => {
+          snackbar.className = snackbar.className.replace("show", ""); // 非表示
+      }, 3000); // 3秒後に非表示
+    }
+   
     generateFretboard();
   
     let correctNote;
