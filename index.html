@@ -239,28 +239,20 @@
     
     let remainingPositions = 0; // 残りのポジション数
 
-    function generateFretboard(correctNote) {
-      const fretboard = document.getElementById('fretboard');
-      const fretDivs = fretboard.getElementsByClassName('fret');
-      remainingPositions = countNotePositions(correctNote);
-      for (let i = 0; i < fretDivs.length; i++) {
-        const fretDiv = fretDivs[i];
-    
-        fretDiv.addEventListener('click', () => {
-          if (fretDiv.textContent === '') {
-            const string = parseInt(fretDiv.dataset.string, 10);
-            const fret = parseInt(fretDiv.dataset.fret, 10);
-            fretDiv.textContent = notes[string][fret];
-            playNote(notes[string][fret]);
-            checkAnswer(notes[string][fret], fretDiv);
-            remainingPositions--;
-            document.getElementById('outputNote').innerHTML = `音階: ${correctNote}<br>残り: ${remainingPositions}`;
-            if (remainingPositions === 0) {
-              alert('全てのポジションをクリックしました！');
-            }
-          }
-        });
+    function generateFretboard(correctNote, remainingPositions) {
+      if (fretDiv.textContent === '') {
+        const string = parseInt(fretDiv.dataset.string, 10);
+        const fret = parseInt(fretDiv.dataset.fret, 10);
+        fretDiv.textContent = notes[string][fret];
+        playNote(notes[string][fret]);
+        checkAnswer(notes[string][fret], fretDiv);
+        remainingPositions--;
+        document.getElementById('outputNote').innerHTML = `音階: ${correctNote}<br>残り: ${remainingPositions}`;
+        if (remainingPositions === 0) {
+          alert('全てのポジションをクリックしました！');
+        }
       }
+      return remainingPositions;
     }
 
     
@@ -377,8 +369,14 @@
       alert(correctNote); // 取得した戻り値を表示する例
     });
     
-    /* document.getElementById('testButton').addEventListener('click', () => { */
-  
+    const fretboard = document.getElementById('fretboard');
+    const fretDivs = fretboard.getElementsByClassName('fret');
+    for (let i = 0; i < fretDivs.length; i++) {
+      const fretDiv = fretDivs[i];
+      fretDiv.addEventListener('click', () => {
+        remainingPositions = countNotePositions(correctNote);
+        remainingPositions = generateFretboard(correctNote, remainingPositions);
+      }
   </script>
 </body>
 </html>
