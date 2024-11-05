@@ -213,16 +213,16 @@
           fretDiv.classList.add('fret');
           fretDiv.textContent = '';
           fretDiv.addEventListener('click', () => {
+            playNote(notes[string][fret]);
             if (fretDiv.textContent === '') {
               fretDiv.textContent = notes[string][fret];
-            }
-            playNote(notes[string][fret]);
-            checkAnswer(notes[string][fret]);
-            remainingPositions--;
-            alert(remainingPositions);
-            document.getElementById('outputNote').innerHTML = `音階: ${randomNote}<br>残り: ${remainingPositions}`;
-            if (remainingPositions === 0) {
-              alert('全てのポジションをクリックしました！');
+              checkAnswer(notes[string][fret]);
+              remainingPositions--;
+              alert(remainingPositions);
+              document.getElementById('outputNote').innerHTML = `音階: ${randomNote}<br>残り: ${remainingPositions}`;
+              if (remainingPositions === 0) {
+                alert('全てのポジションをクリックしました！');
+              }
             }
           });
           fretboard.appendChild(fretDiv);
