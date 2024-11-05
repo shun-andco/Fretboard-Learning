@@ -219,6 +219,7 @@
             playNote(notes[string][fret]);
             checkAnswer(notes[string][fret]);
             remainingPositions--;
+            alert(remainingPositions);
             document.getElementById('outputNote').innerHTML = `音階: ${randomNote}<br>残り: ${remainingPositions}`;
             if (remainingPositions === 0) {
               alert('全てのポジションをクリックしました！');
