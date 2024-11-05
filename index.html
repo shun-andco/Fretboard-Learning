@@ -353,11 +353,25 @@
       // Web Audio API で音を生成
       const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
       const oscillator = audioCtx.createOscillator();
-      oscillator.type = 'sine'; // 音の種類（サイン波）
+      const gainNode = audioCtx.createGain();
+    
+      oscillator.type = 'sine';
       oscillator.frequency.setValueAtTime(noteFrequencies[note], audioCtx.currentTime);
-      oscillator.connect(audioCtx.destination);
+    
+      // Oscillator を GainNode に接続し、GainNode をオーディオ出力に接続
+      oscillator.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+    
+      // 初期音量は0（フェードインのため）
+      gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+      gainNode.gain.linearRampToValueAtTime(1, audioCtx.currentTime + fadeInDuration);
+    
       oscillator.start();
-      oscillator.stop(audioCtx.currentTime + 1); // 1秒再生
+    
+      // 音の終了前にフェードアウトを開始
+      gainNode.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 1 - fadeOutDuration);
+    
+      oscillator.stop(audioCtx.currentTime + 1); // 1秒後に停止
     }
   
     generateFretboard();
