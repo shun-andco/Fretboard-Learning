@@ -222,9 +222,10 @@
             remainingPositions = countNotePositions(notes[string][fret]);
             remainingPositions--;
             document.getElementById('outputNote').innerHTML = `残り: ${remainingPositions}`;
-      
+            if (remainingPositions === 0) {
+              alert （'全てのポジションをクリックしました！'）；
+            }
           });
-
           fretboard.appendChild(fretDiv);
         }
       }
