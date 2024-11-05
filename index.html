@@ -217,8 +217,7 @@
             if (fretDiv.textContent === '') {
               fretDiv.textContent = notes[string][fret];
               checkAnswer(notes[string][fret]);
-              alert(remainingPositions);
-              document.getElementById('outputNote').innerHTML = `音階: ${notes[string][fret]}<br>残り: ${remainingPositions}`;
+              document.getElementById('outputNote').innerHTML = `音階: ${correctNote}<br>残り: ${remainingPositions}`;
               if (remainingPositions === 0) {
                 alert('全てのポジションをクリックしました！');
               }
@@ -359,6 +358,8 @@
     }
   
     generateFretboard();
+  
+    let correctNote;
   
     document.getElementById('testButton').addEventListener('click', () => {
       const correctNote = getRandomNote();
