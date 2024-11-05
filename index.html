@@ -237,28 +237,39 @@
       }
     }
     
-    let remainingPositions = 0; // 残りのポジション数
-
-    function generateFretboard(correctNote, remainingPositions) {
-      const fretboard = document.getElementById('fretboard');
-      const fretDivs = fretboard.getElementsByClassName('fret');
-      for (let i = 0; i < fretDivs.length; i++) {
-        const fretDiv = fretDivs[i];
-        if (fretDiv.textContent === '') {
-          const string = parseInt(fretDiv.dataset.string, 10);
-          const fret = parseInt(fretDiv.dataset.fret, 10);
-          fretDiv.textContent = notes[string][fret];
-          playNote(notes[string][fret]);
-          checkAnswer(notes[string][fret], fretDiv);
-          remainingPositions--;
-          document.getElementById('outputNote').innerHTML = `音階: ${correctNote}<br>残り: ${remainingPositions}`;
-          if (remainingPositions === 0) {
-            alert('全てのポジションをクリックしました！');
+    document.addEventListener("DOMContentLoaded", () => {
+      let remainingPositions = notes.length * notes[0].length; // 全体の残り数を計算
+    
+      function generateFretboard() {
+        const fretboard = document.getElementById('fretboard');
+        fretboard.innerHTML = '';
+    
+        // フレットと弦の生成
+        for (let string = 0; string < notes.length; string++) {
+          for (let fret = 0; fret < notes[string].length; fret++) {
+            const fretDiv = document.createElement('div');
+            fretDiv.classList.add('fret');
+            fretDiv.dataset.string = string;
+            fretDiv.dataset.fret = fret;
+            fretDiv.textContent = ''; // 初期状態は空
+            fretDiv.addEventListener('click', () => {
+              if (fretDiv.textContent === '') {
+                const note = notes[string][fret];
+                fretDiv.textContent = note;
+                remainingPositions--;
+                document.getElementById('outputNote').innerHTML = `音階: ${note}<br>残り: ${remainingPositions}`;
+                if (remainingPositions === 0) {
+                  alert('全てのポジションをクリックしました！');
+                }
+              }
+            });
+            fretboard.appendChild(fretDiv);
           }
         }
       }
-      return remainingPositions;
-    }
+    
+      generateFretboard();
+    });
 
     
     function resetFretboard() {
@@ -368,7 +379,7 @@
   
     generateFretboardcontainer();
   
-    document.getElementById('testButton').addEventListener('click', () => {
+    /* document.getElementById('testButton').addEventListener('click', () => {
       const correctNote = getRandomNote();
       alert(correctNote); // 取得した戻り値を表示する例
     });
@@ -381,7 +392,7 @@
       fretDiv.addEventListener('click', () => {
         remainingPositions = generateFretboard(correctNote, remainingPositions);
       }
-    }
+    } */
   </script>
 </body>
 </html>
