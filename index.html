@@ -169,36 +169,6 @@
       background-color: #4c278b;
     }
     
-    #snackbar {
-        visibility: hidden; /* 初期状態は非表示 */
-        min-width: 250px;
-        margin-left: -125px;
-        background-color: #333;
-        color: #fff;
-        text-align: center;
-        border-radius: 2px;
-        padding: 16px;
-        position: fixed;
-        z-index: 1;
-        left: 50%;
-        bottom: 30px;
-        font-size: 17px;
-    }
-    
-    #snackbar.show {
-        visibility: visible; /* 表示する */
-        animation: fadein 0.5s, fadeout 0.5s 2.5s; /* アニメーション */
-    }
-    
-    @keyframes fadein {
-        from { bottom: 0; opacity: 0; }
-        to { bottom: 30px; opacity: 1; }
-    }
-    
-    @keyframes fadeout {
-        from { bottom: 30px; opacity: 1; }
-        to { bottom: 0; opacity: 0; }
-    }
   </style>
 </head>
 
@@ -389,16 +359,6 @@
       oscillator.connect(audioCtx.destination);
       oscillator.start();
       oscillator.stop(audioCtx.currentTime + 1); // 1秒再生
-    }
-    
-    function showSnackbar(message) {
-      const snackbar = document.getElementById("snackbar");
-      snackbar.textContent = message; // メッセージを設定
-      snackbar.className = "show"; // スナックバーを表示
-  
-      setTimeout(() => {
-          snackbar.className = snackbar.className.replace("show", ""); // 非表示
-      }, 3000); // 3秒後に非表示
     }
    
     generateFretboard();
