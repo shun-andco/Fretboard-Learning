@@ -371,10 +371,10 @@
     
     const fretboard = document.getElementById('fretboard');
     const fretDivs = fretboard.getElementsByClassName('fret');
+    remainingPositions = countNotePositions(correctNote);
     for (let i = 0; i < fretDivs.length; i++) {
       const fretDiv = fretDivs[i];
       fretDiv.addEventListener('click', () => {
-        remainingPositions = countNotePositions(correctNote);
         remainingPositions = generateFretboard(correctNote, remainingPositions);
       }
   </script>
