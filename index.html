@@ -199,7 +199,6 @@
     function generateFretboard() {
       const fretboard = document.getElementById('fretboard');
       fretboard.innerHTML = '';
-      
       // フレット番号の表示
       for (let fret = 0; fret <= 24; fret++) {
         const fretNumberDiv = document.createElement('div');
@@ -219,7 +218,6 @@
             }
             playNote(notes[string][fret]);
             checkAnswer(notes[string][fret]);
-            remainingPositions = countNotePositions(notes[string][fret]);
             remainingPositions--;
             document.getElementById('outputNote').innerHTML = `音階: ${randomNote}<br>残り: ${remainingPositions}`;
             if (remainingPositions === 0) {
@@ -363,6 +361,7 @@
     document.getElementById('testButton').addEventListener('click', () => {
       const correctNote = getRandomNote();
       alert(correctNote); // 取得した戻り値を表示する例
+      remainingPositions = countNotePositions(notes[string][fret]);
     });
     
   </script>
