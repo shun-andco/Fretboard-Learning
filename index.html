@@ -218,7 +218,7 @@
             if (fretDiv.textContent === '') {
               fretDiv.textContent = notes[string][fret];
               checkAnswer(notes[string][fret]);
-              document.getElementById('outputNote').innerHTML = `音階: ${correctNote}<br>残り: ${remainingPositions}`;
+              document.getElementById('outputNote').innerHTML = `音階: ${correctNote}<br>残り: ${remainingPositions}<br>選択した音階: ${notes[string][fret]}`;
               if (remainingPositions === 0) {
                 alert('全てのポジションをクリックしました！');
                 correctNote = getRandomNote();
