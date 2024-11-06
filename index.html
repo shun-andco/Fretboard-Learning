@@ -316,11 +316,11 @@
       const correctNote = document.getElementById('outputNote').innerHTML.split('<br>')[0].split(': ')[1];
       /* remainingPositions = countNotePositions(correctNote); */
       if (selectedNote === correctNote) {
-        showSnackbar('正解！');
+        alert('正解！');
         remainingPositions--;
         /* fretDiv.style.setProperty('--correct-color', 'lightgreen') */
       } else {
-        showSnackbar('不正解、もう一度挑戦してみてください。');
+        alert('不正解、もう一度挑戦してみてください。');
       }
       return remainingPositions;
     }
